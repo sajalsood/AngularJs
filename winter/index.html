@@ -1,0 +1,55 @@
+<html ng-app="myApp">
+<head>
+    <link rel="stylesheet" href="../bower_components/foundation/css/foundation.min.css">
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="winter.js"></script>
+</head>
+<body ng-controller="MyCtrl">
+<div class="row">
+    <h3>{{message}}</h3>
+    <section class="left">
+    <div>
+    <span><input type="text" placeholder="Search House" name="search" ng-model="query.name" ng-change="showMembers = false" /></span>
+    </div>
+    <table border="0" bgcolor="#006600" cellpadding="5" cellspacing="0">
+	    <thead>
+	    	<tr>
+	    		<th>House</th>
+	    		<th>Place</th>
+	    		<th>Sigil</th>
+	    		<th>Members</th>
+	    	</tr>
+	    </thead>
+	    <tbody>
+	    	<tr ng-repeat="house in houses | filter: query">
+	    		<td>{{house.name}}</td>
+	    		<td>{{house.place}}</td>
+	    		<td>{{house.sigil}}</td>
+	    		<td><button class="tiny" ng-click="getMembers(house)">Get</button></td>
+			</tr>
+	    </tbody>
+    </table>
+    </section>
+    <section class="left" style="margin-left: 50px; margin-top: 55px" ng-if="showMembers">
+	  <table border="0" bgcolor="#009900" cellspacing="0" >
+		<thead>
+		    <tr>
+		    	<th>{{house.name}}'s</th>
+		    	<th>Remove</th>
+		    </tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="mem in house.members">
+		     	<td>{{mem}}</td>
+		     	<td><button ng-click="removeMember($index)" class="tiny alert button"><span>x</span></button></td>
+		    </tr>
+		    <tr>
+		    	<td><input type="text" ng-model="member" placeholder="Add New Member" ng-blur="addNewMember(member, member = '')"/></td>
+		    </tr>
+		</tbody>
+    </table>
+    </section>
+  
+</div>
+</body>
+</html>
